@@ -5,8 +5,10 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
 import { charactersReducer } from "./state/reducers";
-import { combineReducers, createStore } from "redux";
+import { combineReducers, createStore, compose, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
+
+import thunk from "redux-thunk";
 
 // Step 4: Use "combineReducers" to make a monster reducer
 const monsterReducer = combineReducers({
@@ -16,7 +18,12 @@ const monsterReducer = combineReducers({
 // Step 5: use "createStore" to make a redux store
 const store = createStore(
 	monsterReducer, // we need the second arg to enable redux devtools
-	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+	{},
+	compose(
+		applyMiddleware(thunk /* ,etc , other middlewares */),
+		window.__REDUX_DEVTOOLS_EXTENSION__ &&
+			window.__REDUX_DEVTOOLS_EXTENSION__()
+	)
 );
 
 ReactDOM.render(

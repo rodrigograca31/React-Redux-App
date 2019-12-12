@@ -23,7 +23,7 @@ export function charactersReducer(
 		case types.LOAD_CHARACTERS:
 			return characters;
 		case types.SET_CHARACTERS:
-			return characters;
+			return action.payload.characters;
 		default:
 			return characters;
 	}
